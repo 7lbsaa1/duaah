@@ -1,0 +1,49 @@
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap');
+
+body {
+    font-family: 'Cairo', sans-serif;
+}
+
+/* Glassmorphism Classes */
+.glass-card {
+    background: rgba(13, 43, 69, 0.45);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border: 1px solid rgba(196, 154, 74, 0.25);
+}
+
+.dark .glass-card {
+    background: rgba(8, 26, 43, 0.65);
+    border: 1px solid rgba(196, 154, 74, 0.35);
+}
+
+/* Light mode overrides when toggled */
+body.light-mode {
+    background: linear-gradient(135deg, #f0f4f8, #e2e8f0, #cbd5e1) !important;
+    color: #0D2B45 !important;
+}
+
+body.light-mode header {
+    background: rgba(255, 255, 255, 0.85) !important;
+    border-bottom: 1px solid rgba(196, 154, 74, 0.3) !important;
+}
+
+body.light-mode .glass-card {
+    background: rgba(255, 255, 255, 0.75) !important;
+    border: 1px solid rgba(196, 154, 74, 0.3) !important;
+    color: #0D2B45 !important;
+}
+
+body.light-mode input, body.light-mode textarea {
+    background: rgba(255, 255, 255, 0.9) !important;
+    color: #0D2B45 !important;
+    border: 1px solid #cbd5e1 !important;
+}
+
+body.light-mode h1, body.light-mode h2, body.light-mode h3, body.light-mode h4 {
+    color: #0D2B45 !important;
+}
+
+body.light-mode p {
+    color: #334155 !important;
+}
