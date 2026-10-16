@@ -44,6 +44,6 @@ body.light-mode h1, body.light-mode h2, body.light-mode h3, body.light-mode h4 {
     color: #0D2B45 !important;
 }
 
-body.light-mode p {
+body.light-mode p, body.light-mode span {
     color: #334155 !important;
 }
