@@ -1,0 +1,553 @@
+هنعمل موقع هو لتعرف علي دعاه الدين و الشخصيات الاسلاميه و في الموقع عباره عن اسماءهم صورهم و روابط السوشيال المتوفره . اسم الموقع دعاه تصميم زجاجي و خفيف و  مريح للعين مع زر الوضع الداكن و الساطع بطريقة جميلةو جذابه . الوان الموقع #0D2B45 . #C49A4A. #70767D . بدايه الموقع طبق هذا البرومت You are given a task to integrate an existing React component in the codebase
+
+The codebase should support:
+- shadcn project structure  
+- Tailwind CSS
+- Typescript
+
+If it doesn't, provide instructions on how to setup project via shadcn CLI, install Tailwind or Typescript.
+
+Determine the default path for components and styles. 
+If default path for components is not /components/ui, provide instructions on why it's important to create this folder
+Copy-paste this component to /components/ui folder:
+```tsx
+svg-follow-scroll.tsx
+"use client";
+
+import { motion, useScroll, useTransform } from "framer-motion";
+import React, { useRef } from "react";
+
+const Skiper19 = () => {
+  const ref = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+  });
+
+  return (
+    <section
+      ref={ref}
+      className="mx-auto flex h-[350vh] w-screen flex-col items-center overflow-hidden bg-[#FAFDEE] px-4 text-[#1F3A4B]"
+    >
+      <div className="mt-42 relative flex w-fit flex-col items-center justify-center gap-5 text-center">
+        <h1 className="font-jakarta-sans relative z-10 text-7xl font-medium tracking-[-0.08em] lg:text-9xl">
+          The Stroke <br /> That follows the <br />
+          Scroll Progress
+        </h1>
+        <p className="font-jakarta-sans relative z-10 max-w-2xl text-xl font-medium text-[#1F3A4B]">
+          Scroll down to see the effect
+        </p>
+
+        <LinePath
+          className="absolute -right-[40%] top-0 z-0"
+          scrollYProgress={scrollYProgress}
+        />
+      </div>
+
+      <div className="rounded-4xl font-jakarta-sans w-full translate-y-[200vh] bg-[#1F3A4B] pb-10 text-[#FAFDEE]">
+        <h1 className="mt-10 text-center text-[15.5vw] font-bold leading-[0.9] tracking-tighter lg:text-[16.6vw]">
+          skiperui.com
+        </h1>
+        <div className="mt-80 flex w-full flex-col items-start gap-5 px-4 font-medium lg:mt-0 lg:flex-row lg:justify-between">
+          <div className="flex w-full items-center justify-between gap-12 uppercase lg:w-fit lg:justify-center">
+            <p className="w-fit text-sm">
+              punjab, india <br />
+              and online
+            </p>
+            <p className="w-fit text-right text-sm lg:text-left">
+              sep 1, 2025 <br /> the Moosa pind
+            </p>
+          </div>
+          <div className="flex w-full flex-wrap items-center justify-between gap-12 uppercase lg:w-fit lg:justify-center">
+            <p className="w-fit text-sm">
+              onilne <br /> free
+            </p>
+            <p className="w-fit text-right text-sm lg:text-left">
+              in person tickets <br /> $600
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export { Skiper19 };
+
+const LinePath = ({
+  className,
+  scrollYProgress,
+}: {
+  className: string;
+  scrollYProgress: any;
+}) => {
+  const pathLength = useTransform(scrollYProgress, [0, 1], [0.5, 1]);
+
+  return (
+    <svg
+      width="1278"
+      height="2319"
+      viewBox="0 0 1278 2319"
+      fill="none"
+      overflow="visible"
+      xmlns="http://www.w3.org/2000/svg"
+      className={className}
+    >
+      <motion.path
+        d="M876.605 394.131C788.982 335.917 696.198 358.139 691.836 416.303C685.453 501.424 853.722 498.43 941.95 409.714C1016.1 335.156 1008.64 186.907 906.167 142.846C807.014 100.212 712.699 198.494 789.049 245.127C889.053 306.207 986.062 116.979 840.548 43.3233C743.932 -5.58141 678.027 57.1682 672.279 112.188C666.53 167.208 712.538 172.943 736.353 163.088C760.167 153.234 764.14 120.924 746.651 93.3868C717.461 47.4252 638.894 77.8642 601.018 116.979C568.164 150.908 557 201.079 576.467 246.924C593.342 286.664 630.24 310.55 671.68 302.614C756.114 286.446 729.747 206.546 681.86 186.442C630.54 164.898 492 209.318 495.026 287.644C496.837 334.494 518.402 366.466 582.455 367.287C680.013 368.538 771.538 299.456 898.634 292.434C1007.02 286.446 1192.67 309.384 1242.36 382.258C1266.99 418.39 1273.65 443.108 1247.75 474.477C1217.32 511.33 1149.4 511.259 1096.84 466.093C1044.29 420.928 1029.14 380.576 1033.97 324.172C1038.31 273.428 1069.55 228.986 1117.2 216.384C1152.2 207.128 1188.29 213.629 1194.45 245.127C1201.49 281.062 1132.22 280.104 1100.44 272.673C1065.32 264.464 1044.22 234.837 1032.77 201.413C1019.29 162.061 1029.71 131.126 1056.44 100.965C1086.19 67.4032 1143.96 54.5526 1175.78 86.1513C1207.02 117.17 1186.81 143.379 1156.22 166.691C1112.57 199.959 1052.57 186.238 999.784 155.164C957.312 130.164 899.171 63.7054 931.284 26.3214C952.068 2.12513 996.288 3.87363 1007.22 43.58C1018.15 83.2749 1003.56 122.644 975.969 163.376C948.377 204.107 907.272 255.122 913.558 321.045C919.727 385.734 990.968 497.068 1063.84 503.35C1111.46 507.456 1166.79 511.984 1175.68 464.527C1191.52 379.956 1101.26 334.985 1030.29 377.017C971.109 412.064 956.297 483.647 953.797 561.655C947.587 755.413 1197.56 941.828 936.039 1140.66C745.771 1285.32 321.926 950.737 134.536 1202.19C-6.68295 1391.68 -53.4837 1655.38 131.935 1760.5C478.381 1956.91 1124.19 1515 1201.28 1997.83C1273.66 2451.23 100.805 1864.7 303.794 2668.89"
+        stroke="#C2F84F"
+        strokeWidth="20"
+        style={{
+          pathLength,
+          strokeDashoffset: useTransform(pathLength, (value) => 1 - value),
+        }}
+      />
+    </svg>
+  );
+};
+
+
+
+demo.tsx
+import { Skiper19 } from "@/components/ui/svg-follow-scroll";
+
+export default function DemoOne() {
+  return <Skiper19 />;
+}
+
+```
+
+Install NPM dependencies:
+```bash
+framer-motion
+```
+
+Implementation Guidelines
+ 1. Analyze the component structure and identify all required dependencies
+ 2. Review the component's argumens and state
+ 3. Identify any required context providers or hooks and install them
+ 4. Questions to Ask
+ - What data/props will be passed to this component?
+ - Are there any specific state management requirements?
+ - Are there any required assets (images, icons, etc.)?
+ - What is the expected responsive behavior?
+ - What is the best place to use this component in the app?
+
+Steps to integrate
+ 0. Copy paste all the code above in the correct directories
+ 1. Install external dependencies
+ 2. Fill image assets with Unsplash stock images you know exist
+ 3. Use lucide-react icons for svgs or logos if component requires them
+ لبدايه الموقع و اكتب تعرف افضل الدعاه و رجال الدين و مقارنوا الاديان . ولما ننزل نشوف بطاقات الشخصيات بنفس هذا البرومت You are given a task to integrate an existing React component in the codebase
+
+The codebase should support:
+- shadcn project structure  
+- Tailwind CSS
+- Typescript
+
+If it doesn't, provide instructions on how to setup project via shadcn CLI, install Tailwind or Typescript.
+
+Determine the default path for components and styles. 
+If default path for components is not /components/ui, provide instructions on why it's important to create this folder
+Copy-paste this component to /components/ui folder:
+```tsx
+team-01.tsx
+"use client";
+import { Badge } from "@/components/ui/badge";
+import { Globe } from "lucide-react";
+import { motion } from "motion/react";
+
+const LinkedinIcon = ({ size = 16 }: { size?: number }) => (
+  <svg
+    width={size}
+    height={size}
+    viewBox="0 0 16 16"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <g clipPath="url(#clip-linkedin-team01)">
+      <path
+        d="M13.633 13.633h-2.37V9.92c0-.885-.017-2.025-1.234-2.025-1.235 0-1.424.965-1.424 1.96v3.778h-2.37V5.998H8.51v1.043h.031a2.5 2.5 0 0 1 2.246-1.233c2.403 0 2.846 1.58 2.846 3.637zM3.56 4.954a1.376 1.376 0 1 1 0-2.751 1.376 1.376 0 0 1 0 2.751m1.185 8.679H2.372V5.998h2.373zM14.815.001H1.18A1.17 1.17 0 0 0 0 1.154v13.691A1.17 1.17 0 0 0 1.18 16h13.635A1.17 1.17 0 0 0 16 14.845V1.153A1.17 1.17 0 0 0 14.815 0"
+        fill="currentColor"
+      />
+    </g>
+    <defs>
+      <clipPath id="clip-linkedin-team01">
+        <rect width="16" height="16" fill="white" />
+      </clipPath>
+    </defs>
+  </svg>
+);
+
+type team = {
+  name: string;
+  role: string;
+  image: string;
+  socials: {
+    website: string;
+    linkedin: string;
+  };
+}[];
+
+const teamData: team = [
+  {
+    name: "Logan Dang",
+    role: "WordPress Developer",
+    image:
+      "https://cdn.21st.dev/assets/localized/a15173e6535b3403cf75d3a251b152b66cb158540ae6fe0cef584477d25c296d.png",
+    socials: {
+      website: "#",
+      linkedin: "#",
+    },
+  },
+  {
+    name: "Ana Belić",
+    role: "Social Media Specialist",
+    image:
+      "https://cdn.21st.dev/assets/localized/642c6a86e5fbd3b161614c1493159ed72ba9f28fd64bbd3dac1aaf902841acbb.png",
+    socials: {
+      website: "#",
+      linkedin: "#",
+    },
+  },
+  {
+    name: "Brian Hanley",
+    role: "Product Designer",
+    image:
+      "https://cdn.21st.dev/assets/localized/16f617e9aa4511f685dd437418d90bcb53817ed5031cd822d60db98848ad536f.png",
+    socials: {
+      website: "#",
+      linkedin: "#",
+    },
+  },
+  {
+    name: "Darko Stanković",
+    role: "UI Designer",
+    image:
+      "https://cdn.21st.dev/assets/localized/90f8eb479a4a56a4da83ebf6be45a9ff73515b0af2cff481f665ea40189a8137.png",
+    socials: {
+      website: "#",
+      linkedin: "#",
+    },
+  },
+];
+
+const Team = () => {
+  return (
+    <section>
+      <div className="lg:py-20 sm:py-16 py-8">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-16 flex flex-col items-center justify-center gap-8 md:gap-16">
+          <motion.div
+            initial={{ y: -40, opacity: 0 }}
+            whileInView={{ y: 0, opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{
+              duration: 0.8,
+              ease: [0.21, 0.47, 0.32, 0.98],
+            }}
+            className="max-w-xl mx-auto flex flex-col items-center justify-center text-center gap-4"
+          >
+            <Badge variant={"outline"} className="px-3 py-1 h-auto text-sm">
+              Team
+            </Badge>
+            <h2 className="text-3xl md:text-5xl font-medium text-foreground">
+              Meet the creative minds behind our success
+            </h2>
+          </motion.div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {teamData?.map((value, index) => {
+              return (
+                <motion.div
+                  key={index}
+                  initial={{ y: 40, opacity: 0 }}
+                  whileInView={{ y: 0, opacity: 1 }}
+                  viewport={{ once: true }}
+                  transition={{
+                    duration: 0.8,
+                    delay: index * 0.1,
+                    ease: [0.21, 0.47, 0.32, 0.98],
+                  }}
+                  className="group flex flex-col items-center justify-center gap-6"
+                >
+                  <img
+                    className="w-full h-full group-hover:grayscale transition-all duration-300"
+                    src={value.image}
+                    alt="team-img"
+                  />
+                  <div className="w-full flex flex-col gap-4 items-center justify-center">
+                    <div className="flex flex-col items-center justify-center gap-2">
+                      <h3 className="text-2xl font-medium text-foreground">
+                        {value.name}
+                      </h3>
+                      <p className="text-sm font-normal text-muted-foreground">
+                        {value.role}
+                      </p>
+                    </div>
+                    <div className="flex gap-2">
+                      <a
+                        href={value.socials.website}
+                        className="p-2 hover:bg-accent/80 rounded-full"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <Globe size={16} />
+                      </a>
+                      <a
+                        href={value.socials.linkedin}
+                        className="p-2 hover:bg-accent/80 rounded-full"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <LinkedinIcon size={16} />
+                      </a>
+                    </div>
+                  </div>
+                </motion.div>
+              );
+            })}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default Team;
+
+
+demo.tsx
+import Team01 from "@/components/ui/team-01";
+
+export default function Team01Demo() {
+  return <Team01 />;
+}
+
+```
+
+Copy-paste these files for dependencies:
+```tsx
+shadcn/badge
+import * as React from "react"
+import { cva, type VariantProps } from "class-variance-authority"
+
+import { cn } from "@/lib/utils"
+
+const badgeVariants = cva(
+  "inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2",
+  {
+    variants: {
+      variant: {
+        default:
+          "border-transparent bg-primary text-primary-foreground hover:bg-primary/80",
+        secondary:
+          "border-transparent bg-secondary text-secondary-foreground hover:bg-secondary/80",
+        destructive:
+          "border-transparent bg-destructive text-destructive-foreground hover:bg-destructive/80",
+        outline: "text-foreground",
+      },
+    },
+    defaultVariants: {
+      variant: "default",
+    },
+  },
+)
+
+export interface BadgeProps
+  extends React.HTMLAttributes<HTMLDivElement>,
+    VariantProps<typeof badgeVariants> {}
+
+function Badge({ className, variant, ...props }: BadgeProps) {
+  return (
+    <div className={cn(badgeVariants({ variant }), className)} {...props} />
+  )
+}
+
+export { Badge, badgeVariants }
+
+```
+
+Install NPM dependencies:
+```bash
+motion, lucide-react, class-variance-authority
+```
+
+Implementation Guidelines
+ 1. Analyze the component structure and identify all required dependencies
+ 2. Review the component's argumens and state
+ 3. Identify any required context providers or hooks and install them
+ 4. Questions to Ask
+ - What data/props will be passed to this component?
+ - Are there any specific state management requirements?
+ - Are there any required assets (images, icons, etc.)?
+ - What is the expected responsive behavior?
+ - What is the best place to use this component in the app?
+
+Steps to integrate
+ 0. Copy paste all the code above in the correct directories
+ 1. Install external dependencies
+ 2. Fill image assets with Unsplash stock images you know exist
+ 3. Use lucide-react icons for svgs or logos if component requires them
+. فوق زر رفع لاضافه شخصية جديدة . لما بندوس عليها بيظهر مكان لرفع صورة من الجهاز او بدل رفع الصورة اضافه رابط للصورة URL و اسم الشخصية و روابط السوشيال حط روابط السوشيال متفرقه ف مثلا مربع مكتوب هنا رابط الفيس ولما بنحط الرابط بيضاف علي صوره الشخص لما يترفع علي الموقع صورة الشخص زي الصوره الي بعتهالك عليه صور السوشيال ميديا المتاحة ف مثلا شخصيه حاطط يوتيوب فقط ف يظهر صوره شعار يوتيوب علي صورة الشخصيه . ششخصية تانيه حاطط رابط فيس و انستاجرام يتحطاو الشعار بتاعهم و هكذا . المهم نكمل طريقة الرفع هيكون زي ما قولنا الاسم و الصورة اذا كانت مرفوعه او رابط و روابط السوشيال فيس انستا يوتيوب . لما بندوس رفع بيقولك رساله شكر و سيتم مراجعه بيانات الشخصيه و رفعها في اسرع وقت في ميزان حسناتك . . لما بنرفع الشخصيه بتروح ل صفحة الادمن admin55681891dsjdskm56adsdnsadid=14.html و فيها كل الشخصيات الرفوعه قيد المراجعه ويمكن الاستعلاع علي الصورة و الاسم والروابط و جنبها 3 ازرار زر حذف اذا كانت لا تهم و زر نشر بمجرد النشر تظهر في الصفحة الرئيسية و زر تعديل اقدر اعدل بيناتات الشخصيه اي كانت صور او اسم او رابط سوشيال . كل الشخصيات اللتي تم رفعها بالفعل في مكان في الادمن اسمه الشخصيات المتاحة لي يمكن تعديل اي شي في المستقبل في الشخصية . هنربط الموقع ب فاير بيز بياناتها // Import the functions you need from the SDKs you need
+import { initializeApp } from "firebase/app";
+import { getAnalytics } from "firebase/analytics";
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+
+// Your web app's Firebase configuration
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+const firebaseConfig = {
+  apiKey: "AIzaSyBCo3Fw_Qm5MD9ouJ02PoGcKAaZcxGUK2E",
+  authDomain: "muslim-3483a.firebaseapp.com",
+  projectId: "muslim-3483a",
+  storageBucket: "muslim-3483a.firebasestorage.app",
+  messagingSenderId: "543628140761",
+  appId: "1:543628140761:web:15a6b1692b99aa94215ec8",
+  measurementId: "G-0CEJWQLHD0"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app); . و لكن قم بتشفيرها لكي لا تكن اي شي واضح و مفهوم للمستخدمين . صفحة الادمن ب email password اللي معمولين في فاير بيز و لا شي اخر ركز علي هذه النقطةو لا تغلط فيها . اربط الموقع ب جوجل سيرش كونسل و حسن ceo . <meta name="google-site-verification" content="vQkEFrgdAPl3xP43S1b3-uVYW6XT5a8X8MtWs7m2mlE" /> وشفرها ايضا. حط كلمات كتير في محركات البحث لسهوله عرضها محمد متولي الشعراوي
+محمد حسان
+محمد حسين يعقوب
+مصطفى حسني
+عمرو خالد
+عائض القرني
+نبيل العوضي
+عمر عبد الكافي
+طارق السويدان
+راتب النابلسي
+عثمان الخميس
+صالح المغامسي
+سعد العتيق
+عبد الرزاق البدر
+صالح الفوزان
+عبد العزيز بن باز
+محمد بن صالح العثيمين
+صالح آل الشيخ
+ياسر الدوسري
+ماهر المعيقلي
+عبد الرحمن السديس
+مشاري العفاسي
+إدريس أبكر
+خالد الجليل
+بدر المشاري
+أبو إسحاق الحويني
+أحمد السيد
+إياد قنيبي
+هاني حلمي
+1. حازم شومان . دعوة
+2. دعاه
+3. دعاة
+4. الدعوة الإسلامية
+5. الدعاة المسلمين
+6. الداعية الإسلامي
+7. علماء المسلمين
+8. العلم الشرعي
+9. القرآن الكريم
+10. تفسير القرآن
+11. علوم القرآن
+12. السنة النبوية
+13. الحديث الشريف
+14. الفقه الإسلامي
+15. العقيدة الإسلامية
+16. السيرة النبوية
+17. الأذكار
+18. الأدعية
+19. الدعاء
+20. التوحيد
+21. الإيمان
+22. الإسلام
+23. المسلمون
+24. المسلمين
+25. الوعظ والإرشاد
+26. الخطابة
+27. الدروس الدينية
+28. المحاضرات الإسلامية
+29. الخطب
+30. خطب الجمعة
+31. المساجد
+32. طلب العلم
+33. طلاب العلم
+34. الدعوة إلى الله
+35. نشر الإسلام
+36. تعليم القرآن
+37. تحفيظ القرآن
+38. تجويد القرآن
+39. التفسير
+40. الحديث
+41. الفقه
+42. أصول الفقه
+43. علوم الحديث
+44. السيرة
+45. الأخلاق الإسلامية
+46. الآداب الإسلامية
+47. التربية الإسلامية
+48. الوسطية
+49. الاعتدال
+50. الرحمة
+51. الصبر
+52. التقوى
+53. الاستغفار
+54. التوبة
+55. الذكر
+56. قيام الليل
+57. صلاة الفجر
+58. الصلاة
+59. الزكاة
+60. الصيام
+61. الحج
+62. العمرة
+63. رمضان
+64. ليلة القدر
+65. يوم الجمعة
+66. قصص الأنبياء
+67. قصص الصحابة
+68. الصحابة
+69. التابعون
+70. أمهات المؤمنين
+71. السيرة العطرة
+72. الإعجاز القرآني
+73. التدبر
+74. خواطر إيمانية
+75. موعظة
+76. موعظة مؤثرة
+77. كلمة طيبة
+78. نصيحة دينية
+79. فتاوى إسلامية
+80. أسئلة دينية
+81. أحكام شرعية
+82. تعلم الدين
+83. تعليم الإسلام
+84. المحتوى الإسلامي
+85. منصة إسلامية
+86. دليل الدعاة
+87. دليل العلماء
+88. دليل المشايخ
+89. دعاة مصر
+90. دعاة العالم الإسلامي
+91. دعاة معاصرون
+92. علماء الأزهر
+93. خطباء المساجد
+94. محاضرات دينية
+95. دروس إيمانية
+96. قناة إسلامية
+97. بودكاست إسلامي
+98. مكتبة إسلامية
+99. مواقع إسلامية
+100. التواصل مع الدعاة
+101. البحث عن داعية
+102. علم نافع
+103. العمل الصالح . حط دول . و اسم الموقع فوق دُعاة | دليل الدعاة والعلماء المسلمين
+اكتشف دليل الدعاة والعلماء المسلمين، وتعرّف على سيرتهم وتخصصاتهم ومحاضراتهم وروابط حساباتهم الرسمية في منصة دُعاة. اللتي تظهر تحت عنوان الصفحة في جوجل . صوره الموقع من جوا صوره مسارها logo.WebP و صورة الموقع في tap و في Favicon نفس الصوره مسارها fac.logo.jpg . الصفحة حاليا هتبقي فاضيه لكنك لما تبعت الاكود كامله مظبوطه هبدا انا ارفع واقبل الشخصيات . ابعت الاكواد index.html . admin55681891dsjdskm56adsdnsadid=14.html . style.css and js . طريقة رفع الصورة بطريقة الموقع الأساسي
+     ↓
+المستخدم يختار الصورة
+     ↓
+ضغط/تصغير الصورة في المتصفح
+     ↓
+تحويلها إلى Base64
+     ↓
+Firebase Realtime Database / Firestore
+     ↓
+صفحة Admin
+     ↓
+ دون الحاجة ل url حقيقي. أكد من المرور على جميع صفحات موقعك (مثل شريط التنقل Navbar) وتحديث الروابط لتصبح href="/login" بدلاً من href="/login.html" vercel.json
