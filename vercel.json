@@ -1,0 +1,9 @@
+{
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "rewrites": [
+    { "source": "/login", "destination": "/admin55681891dsjdskm56adsdnsadid=14.html" },
+    { "source": "/admin", "destination": "/admin55681891dsjdskm56adsdnsadid=14.html" }
+  ],
+  "headers": [{ "source": "/(.*)", "headers": [{ "key": "X-Content-Type-Options", "value": "nosniff" }, { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" }] }]
+}
