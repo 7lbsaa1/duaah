@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لوحة التحكم | إدارة دُعاة</title>
+    <link rel="icon" href="fac.logo.jpg" type="image/jpeg">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-gradient-to-br from-[#0D2B45] via-[#123656] to-[#081a2b] text-gray-100 min-h-screen font-sans">
+
+    <!-- Login Section -->
+    <div id="loginSection" class="flex items-center justify-center min-h-screen p-4">
+        <div class="glass-card bg-[#0D2B45]/90 border border-[#C49A4A]/40 w-full max-w-md p-8 rounded-3xl shadow-2xl backdrop-blur-xl">
+            <div class="text-center mb-6">
+                <img src="logo.WebP" alt="شعار" class="w-16 h-16 rounded-full mx-auto mb-3 border-2 border-[#C49A4A] object-cover">
+                <h2 class="text-2xl font-bold text-white">لوحة تحكم الأدمن</h2>
+                <p class="text-xs text-[#C49A4A] mt-1">تسجيل الدخول عبر بيانات Firebase المعتمدة</p>
+            </div>
+            <form id="loginForm" class="space-y-4">
+                <div>
+                    <label class="block text-sm text-[#C49A4A] mb-1">البريد الإلكتروني</label>
+                    <input type="email" id="adminEmail" required class="w-full px-4 py-3 rounded-xl bg-black/40 border border-white/10 text-white focus:border-[#C49A4A] focus:outline-none text-sm" placeholder="admin@example.com">
+                </div>
+                <div>
+                    <label class="block text-sm text-[#C49A4A] mb-1">كلمة المرور</label>
+                    <input type="password" id="adminPassword" required class="w-full px-4 py-3 rounded-xl bg-black/40 border border-white/10 text-white focus:border-[#C49A4A] focus:outline-none text-sm" placeholder="••••••••">
+                </div>
+                <button type="submit" class="w-full bg-[#C49A4A] hover:bg-[#b0873e] text-[#0D2B45] font-bold py-3 rounded-xl transition-all shadow-lg text-sm">
+                    تسجيل الدخول
+                </button>
+                <p id="loginError" class="text-red-400 text-xs text-center mt-2 hidden"></p>
+            </form>
+        </div>
+    </div>
+
+    <!-- Admin Dashboard (Hidden initially) -->
+    <div id="dashboardSection" class="hidden min-h-screen flex flex-col">
+        <!-- Navbar -->
+        <header class="bg-[#0D2B45]/80 border-b border-[#C49A4A]/20 px-6 py-4 flex justify-between items-center backdrop-blur-md">
+            <div class="flex items-center gap-3">
+                <img src="logo.WebP" alt="شعار" class="w-10 h-10 rounded-full object-cover border border-[#C49A4A]">
+                <h1 class="text-lg font-bold text-white">إدارة منصة دُعاة - لوحة التحكم</h1>
+            </div>
+            <button id="logoutBtn" class="bg-red-500/20 hover:bg-red-500/30 text-red-300 px-4 py-2 rounded-xl text-xs font-semibold transition-all border border-red-500/30">
+                <i class="fa-solid fa-right-from-bracket ml-1"></i> تسجيل الخروج
+            </button>
+        </header>
+
+        <!-- Content Tabs / Sections -->
+        <main class="flex-1 max-w-7xl w-full mx-auto px-4 py-8 space-y-12">
+            <!-- Pending Section -->
+            <section>
+                <div class="flex items-center justify-between mb-6 border-b border-[#C49A4A]/20 pb-3">
+                    <h2 class="text-xl font-bold text-[#C49A4A] flex items-center gap-2">
+                        <i class="fa-solid fa-clock-rotate-left"></i> الشخصيات قيد المراجعة والطلبات الجديدة
+                    </h2>
+                </div>
+                <div id="pendingGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Loaded dynamically -->
+                </div>
+                <p id="noPending" class="text-gray-400 text-sm hidden">لا توجد طلبات جديدة معلقة حالياً.</p>
+            </section>
+
+            <!-- Published Section -->
+            <section class="pt-6">
+                <div class="flex items-center justify-between mb-6 border-b border-[#C49A4A]/20 pb-3">
+                    <h2 class="text-xl font-bold text-green-400 flex items-center gap-2">
+                        <i class="fa-solid fa-circle-check"></i> الشخصيات المتاحة والمنشورة حالياً
+                    </h2>
+                </div>
+                <div id="publishedGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Loaded dynamically -->
+                </div>
+                <p id="noPublished" class="text-gray-400 text-sm hidden">لا توجد شخصيات منشورة حالياً.</p>
+            </section>
+        </main>
+    </div>
+
+    <!-- Edit Modal -->
+    <div id="editModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-md hidden p-4">
+        <div class="glass-card bg-[#0D2B45] border border-[#C49A4A]/40 w-full max-w-lg p-6 rounded-3xl shadow-2xl relative">
+            <button id="closeEditModalBtn" class="absolute top-4 left-4 text-gray-400 hover:text-white">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <h3 class="text-xl font-bold text-white mb-4 text-center">تعديل بيانات الشخصية</h3>
+            <form id="editPreacherForm" class="space-y-4">
+                <input type="hidden" id="editId">
+                <div>
+                    <label class="block text-sm text-[#C49A4A] mb-1">الاسم</label>
+                    <input type="text" id="editName" required class="w-full px-4 py-2.5 rounded-xl bg-black/40 border border-white/10 text-white text-sm">
+                </div>
+                <div>
+                    <label class="block text-sm text-[#C49A4A] mb-1">التخصص</label>
+                    <input type="text" id="editRole" required class="w-full px-4 py-2.5 rounded-xl bg-black/40 border border-white/10 text-white text-sm">
+                </div>
+                <div>
+                    <label class="block text-sm text-[#C49A4A] mb-1">رابط الصورة</label>
+                    <input type="url" id="editImage" required class="w-full px-4 py-2.5 rounded-xl bg-black/40 border border-white/10 text-white text-sm">
+                </div>
+                <div class="space-y-2 pt-2 border-t border-white/10">
+                    <label class="block text-xs text-[#C49A4A]">روابط السوشيال</label>
+                    <input type="url" id="editYoutube" placeholder="يوتيوب" class="w-full px-3 py-2 rounded-xl bg-black/40 border border-white/10 text-white text-xs">
+                    <input type="url" id="editFacebook" placeholder="فيسبوك" class="w-full px-3 py-2 rounded-xl bg-black/40 border border-white/10 text-white text-xs">
+                    <input type="url" id="editInstagram" placeholder="انستغرام" class="w-full px-3 py-2 rounded-xl bg-black/40 border border-white/10 text-white text-xs">
+                    <input type="url" id="editTelegram" placeholder="تليجرام" class="w-full px-3 py-2 rounded-xl bg-black/40 border border-white/10 text-white text-xs">
+                    <input type="url" id="editWebsite" placeholder="موقع شخصي" class="w-full px-3 py-2 rounded-xl bg-black/40 border border-white/10 text-white text-xs">
+                </div>
+                <button type="submit" class="w-full bg-[#C49A4A] text-[#0D2B45] font-bold py-2.5 rounded-xl text-sm">حفظ التعديلات</button>
+            </form>
+        </div>
+    </div>
+
+    <script type="module" src="script.js"></script>
+</body>
+</html>
