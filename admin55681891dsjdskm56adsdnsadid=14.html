@@ -1,5 +1,58 @@
-<!doctype html>
-<html lang="ar" dir="rtl">
-<head><meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" /><title>لوحة الإدارة | دُعاة</title><link rel="icon" href="fac.logo.jpg" type="image/jpeg" /><link rel="stylesheet" href="style.css" /></head>
-<body><div class="site-shell admin-shell"><header class="navbar glass"><a class="brand" href="/"><img src="logo.WebP" alt="شعار دُعاة" onerror="this.style.display='none'" /><span><strong>دُعاة</strong><small>لوحة الإدارة</small></span></a><a class="button secondary small-button" href="/">العودة للموقع</a><button id="themeToggle" class="icon-button" type="button" aria-label="تبديل الوضع">☼</button></header>
-<main class="admin-main"><div class="section-heading"><div><span class="eyebrow">إدارة المحتوى</span><h1>إضافة شخصية جديدة</h1></div><p>تُحفظ البيانات محليًا في المتصفح حتى تربط Firebase لاحقًا.</p></div><div class="admin-grid"><form id="profileForm" class="admin-form glass"><label>الاسم الكامل<input name="name" required placeholder="مثال: الشيخ محمد متولي الشعراوي" /></label><label>التخصص / الصفة<input name="role" required placeholder="مثال: داعية وعالم أزهري" /></label><label>نبذة مختصرة<textarea name="bio" rows="4" required placeholder="اكتب نبذة تعريفية قصيرة..."></textarea></label><label>رابط الموقع أو الصفحة الرسمية<input name="website" type="url" placeholder="https://" /></label><div class="form-row"><label>يوتيوب<input name="youtube" type="url" placeholder="https://youtube.com/" /></label><label>فيسبوك<input name="facebook" type="url" placeholder="https://facebook.com/" /></label></div><label>الصورة الشخصية<input id="imageInput" name="image" type="file" accept="image/*" required /><small class="hint">سيتم ضغط الصورة وتحويلها إلى Base64 داخل المتصفح، بدون رابط خارجي.</small></label><div id="imagePreview" class="image-preview" hidden></div><button class="button primary" type="submit">حفظ الشخصية</button><p id="formMessage" class="form-message" role="status"></p></form><aside class="admin-help glass"><span class="eyebrow">طريقة العمل</span><h2>إضافة آمنة وبسيطة</h2><ol><li>اختر صورة من جهازك.</li><li>يتم تصغيرها تلقائيًا قبل الحفظ.</li><li>تُحفظ الشخصية في LocalStorage حاليًا.</li><li>استبدل طبقة التخزين بـ Firebase عند الإطلاق.</li></ol><div class="storage-note">لتفعيل قاعدة بيانات حقيقية، أنشئ مشروع Firebase وأضف إعداداته في ملف مستقل، ثم استبدل الدوال الموجودة في <code>js/app.js</code>.</div></aside></div><section class="admin-list-section"><div class="section-heading"><div><span class="eyebrow">المحتوى الحالي</span><h2>الشخصيات المضافة</h2></div><button id="clearProfiles" class="button danger" type="button">حذف الإضافات المحلية</button></div><div id="adminList" class="admin-list"></div></section></main><footer><span>© <span id="year"></span> دُعاة</span><a href="/">الصفحة الرئيسية</a></footer></div><script src="js/app.js"></script><script src="js/admin.js"></script></body></html>
+<!-- ==========================================
+// File: admin55681891dsjdskm56adsdnsadid=14.html
+// Description: Admin Panel for Vercel Frontend
+// ========================================== -->
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <title>لوحة التحكم | دُعاة</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body class="p-6 min-h-screen">
+
+  <!-- Admin Login View -->
+  <div id="loginView" class="max-w-md mx-auto my-20 glass-card p-8 text-right">
+    <h1 class="text-2xl font-bold text-[#C49A4A] mb-6 text-center">تسجيل دخول الأدمن</h1>
+    <form id="adminLoginForm" class="space-y-4">
+      <div>
+        <label class="block mb-1">البريد الإلكتروني</label>
+        <input type="email" id="adminEmail" required class="w-full p-2.5 rounded bg-white/10 border border-gray-500">
+      </div>
+      <div>
+        <label class="block mb-1">كلمة المرور</label>
+        <input type="password" id="adminPassword" required class="w-full p-2.5 rounded bg-white/10 border border-gray-500">
+      </div>
+      <button type="submit" class="w-full btn-gold py-2.5 rounded font-bold">تسجيل الدخول</button>
+    </form>
+  </div>
+
+  <!-- Admin Dashboard View -->
+  <div id="dashboardView" class="hidden max-w-7xl mx-auto">
+    <div class="flex justify-between items-center mb-8 glass-card p-4">
+      <h1 class="text-2xl font-bold text-[#C49A4A]">لوحة إدارة منصة دُعاة</h1>
+      <button id="logoutBtn" class="bg-red-600 text-white px-4 py-2 rounded">تسجيل الخروج</button>
+    </div>
+
+    <!-- Pending Cards Section -->
+    <section class="mb-12">
+      <h2 class="text-xl font-bold mb-4 text-yellow-400 flex items-center gap-2">
+        <i data-lucide="clock"></i> طلبات الشخصيات قيد المراجعة
+      </h2>
+      <div id="pendingContainer" class="grid grid-cols-1 md:grid-cols-3 gap-6"></div>
+    </section>
+
+    <!-- Published Cards Section -->
+    <section>
+      <h2 class="text-xl font-bold mb-4 text-green-400 flex items-center gap-2">
+        <i data-lucide="check-circle"></i> الشخصيات المتاحة في الصفحة الرئيسية
+      </h2>
+      <div id="publishedContainer" class="grid grid-cols-1 md:grid-cols-3 gap-6"></div>
+    </section>
+  </div>
+
+  <script src="admin.js" type="module"></script>
+</body>
+</html>
